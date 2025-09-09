@@ -1,0 +1,3 @@
+git remote add origin https://github.com/ChiragMakvana09/munimji-whatsapp-demo.git
+git branch -M main
+git push -u origin main
