@@ -73,8 +73,9 @@ districtSelect.addEventListener('change', () => {
 });
 
 // Form submit
-form.addEventListener('submit', function(e) {
+form.addEventListener('submit', async function(e) {
   e.preventDefault();
+
   const society = form.society.value;
   const state = form.state.value;
   const district = form.district.value;
@@ -82,8 +83,37 @@ form.addEventListener('submit', function(e) {
   const date = form.date.value;
   const time = form.time.value;
 
+  // Show local confirmation
   message.innerText = `✅ Thank you! Your ${mode} has been booked for ${society}, ${city}, ${district}, ${state} on ${date} at ${time}.`;
+
+  // Send data to backend to notify WhatsApp
+  try {
+    const res = await fetch("/save-demo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        societyName: society,
+        state,
+        district,
+        city,
+        demoDate: date,
+        demoTime: time
+      })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      console.log("✅ WhatsApp message sent successfully");
+    } else {
+      console.error("❌ WhatsApp message failed", data.error);
+    }
+  } catch (err) {
+    console.error("❌ Error sending demo to backend:", err);
+  }
+
+  // Reset form
   form.reset();
   districtSelect.innerHTML = '<option value="">-- Select District --</option>';
   citySelect.innerHTML = '<option value="">-- Select City --</option>';
 });
+
