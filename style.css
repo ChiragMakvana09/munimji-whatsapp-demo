@@ -1,32 +1,71 @@
-/* body {
+body {
   font-family: Arial, sans-serif;
+  background: #f4f7fa;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f2f5;
+  min-height: 100vh;
+  margin: 0;
 }
-
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-input {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 100%;
-  box-sizing: border-box;
+  max-width: 450px;
 }
-
-button {
-  padding: 10px 20px;
-  background-color: #0078ff;
-  color: white;
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+.toggle-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.toggle-buttons button {
+  flex: 1;
+  padding: 12px;
+  margin: 0 5px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  background: #e0e0e0;
+  color: #333;
+  font-weight: bold;
   cursor: pointer;
-} */
+  transition: background 0.3s;
+}
+.toggle-buttons button.active {
+  background: #007bff;
+  color: white;
+}
+form input, form select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+form button {
+  width: 100%;
+  padding: 12px;
+  background: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+form button:hover {
+  background: #218838;
+}
+#message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: green;
+}
