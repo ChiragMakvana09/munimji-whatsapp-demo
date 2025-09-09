@@ -35,8 +35,16 @@
         <option value="">-- Select City --</option>
       </select>
 
-      <input type="date" name="date" placeholder="Select Date" required />
-      <input type="time" name="time" placeholder="Select Time" required />
+      <!-- Date & Time with custom placeholder -->
+      <div class="input-group">
+        <input type="date" id="date" name="date" required />
+        <label for="date">Select Date</label>
+      </div>
+
+      <div class="input-group">
+        <input type="time" id="time" name="time" required />
+        <label for="time">Select Time</label>
+      </div>
 
       <button type="submit">Submit</button>
     </form>
@@ -44,96 +52,6 @@
     <p id="message"></p>
   </div>
 
-  <script>
-    const demoBtn = document.getElementById('demoBtn');
-    const callBtn = document.getElementById('callBtn');
-    const form = document.getElementById('demoForm');
-    const message = document.getElementById('message');
-    const stateSelect = document.getElementById('state');
-    const districtSelect = document.getElementById('district');
-    const citySelect = document.getElementById('city');
-
-    let mode = "Demo";
-
-    // Data for dropdowns
-    const data = {
-      Gujarat: {
-        Ahmedabad: ["Maninagar", "SG Highway", "Bopal"],
-        Surat: ["Adajan", "Varachha", "Katargam"],
-        Rajkot: ["Kalavad Road", "150 Feet Ring Road", "University Road"]
-      },
-      Maharashtra: {
-        Mumbai: ["Andheri", "Borivali", "Dadar"],
-        Pune: ["Shivaji Nagar", "Hinjewadi", "Kothrud"],
-        Nagpur: ["Sitabuldi", "Dharampeth", "Wardha Road"]
-      },
-      Rajasthan: {
-        Jaipur: ["Malviya Nagar", "Vaishali Nagar", "C-Scheme"],
-        Udaipur: ["Hiran Magri", "Fatehpura", "Surajpole"],
-        Jodhpur: ["Sardarpura", "Ratanada", "Paota"]
-      }
-    };
-
-    // Toggle buttons
-    demoBtn.addEventListener('click', () => {
-      mode = "Demo";
-      demoBtn.classList.add('active');
-      callBtn.classList.remove('active');
-    });
-
-    callBtn.addEventListener('click', () => {
-      mode = "Call";
-      callBtn.classList.add('active');
-      demoBtn.classList.remove('active');
-    });
-
-    // State change → update districts
-    stateSelect.addEventListener('change', () => {
-      const state = stateSelect.value;
-      districtSelect.innerHTML = '<option value="">-- Select District --</option>';
-      citySelect.innerHTML = '<option value="">-- Select City --</option>';
-
-      if (state && data[state]) {
-        Object.keys(data[state]).forEach(district => {
-          const option = document.createElement('option');
-          option.value = district;
-          option.textContent = district;
-          districtSelect.appendChild(option);
-        });
-      }
-    });
-
-    // District change → update cities
-    districtSelect.addEventListener('change', () => {
-      const state = stateSelect.value;
-      const district = districtSelect.value;
-      citySelect.innerHTML = '<option value="">-- Select City --</option>';
-
-      if (state && district && data[state][district]) {
-        data[state][district].forEach(city => {
-          const option = document.createElement('option');
-          option.value = city;
-          option.textContent = city;
-          citySelect.appendChild(option);
-        });
-      }
-    });
-
-    // Form submit
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const society = form.society.value;
-      const state = form.state.value;
-      const district = form.district.value;
-      const city = form.city.value;
-      const date = form.date.value;
-      const time = form.time.value;
-
-      message.innerText = `✅ Thank you! Your ${mode} has been booked for ${society}, ${city}, ${district}, ${state} on ${date} at ${time}.`;
-      form.reset();
-      districtSelect.innerHTML = '<option value="">-- Select District --</option>';
-      citySelect.innerHTML = '<option value="">-- Select City --</option>';
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
