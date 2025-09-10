@@ -73,6 +73,7 @@ districtSelect.addEventListener('change', () => {
 });
 
 // Form submit
+// Form submit
 form.addEventListener('submit', async function(e) {
   e.preventDefault();
 
@@ -83,6 +84,10 @@ form.addEventListener('submit', async function(e) {
   const date = form.date.value;
   const time = form.time.value;
 
+  // ✅ URL se phone read karo
+  const urlParams = new URLSearchParams(window.location.search);
+  const phone = urlParams.get("phone");
+
   // Show local confirmation
   message.innerText = `✅ Thank you! Your ${mode} has been booked for ${society}, ${city}, ${district}, ${state} on ${date} at ${time}.`;
 
@@ -92,12 +97,14 @@ form.addEventListener('submit', async function(e) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        phone,                 // 👈 add phone here
         societyName: society,
         state,
         district,
         city,
         demoDate: date,
-        demoTime: time
+        demoTime: time,
+        mode                   // 👈 add demo/call info
       })
     });
 
@@ -116,4 +123,5 @@ form.addEventListener('submit', async function(e) {
   districtSelect.innerHTML = '<option value="">-- Select District --</option>';
   citySelect.innerHTML = '<option value="">-- Select City --</option>';
 });
+
 
