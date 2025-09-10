@@ -1,10 +1,10 @@
-const demoBtn = document.getElementById('demoBtn');
-const callBtn = document.getElementById('callBtn');
-const form = document.getElementById('demoForm');
-const message = document.getElementById('message');
-const stateSelect = document.getElementById('state');
-const districtSelect = document.getElementById('district');
-const citySelect = document.getElementById('city');
+const demoBtn = document.getElementById("demoBtn");
+const callBtn = document.getElementById("callBtn");
+const form = document.getElementById("demoForm");
+const message = document.getElementById("message");
+const stateSelect = document.getElementById("state");
+const districtSelect = document.getElementById("district");
+const citySelect = document.getElementById("city");
 
 let mode = "Demo";
 
@@ -13,42 +13,42 @@ const data = {
   Gujarat: {
     Ahmedabad: ["Maninagar", "SG Highway", "Bopal"],
     Surat: ["Adajan", "Varachha", "Katargam"],
-    Rajkot: ["Kalavad Road", "150 Feet Ring Road", "University Road"]
+    Rajkot: ["Kalavad Road", "150 Feet Ring Road", "University Road"],
   },
   Maharashtra: {
     Mumbai: ["Andheri", "Borivali", "Dadar"],
     Pune: ["Shivaji Nagar", "Hinjewadi", "Kothrud"],
-    Nagpur: ["Sitabuldi", "Dharampeth", "Wardha Road"]
+    Nagpur: ["Sitabuldi", "Dharampeth", "Wardha Road"],
   },
   Rajasthan: {
     Jaipur: ["Malviya Nagar", "Vaishali Nagar", "C-Scheme"],
     Udaipur: ["Hiran Magri", "Fatehpura", "Surajpole"],
-    Jodhpur: ["Sardarpura", "Ratanada", "Paota"]
-  }
+    Jodhpur: ["Sardarpura", "Ratanada", "Paota"],
+  },
 };
 
 // Toggle buttons
-demoBtn.addEventListener('click', () => {
+demoBtn.addEventListener("click", () => {
   mode = "Demo";
-  demoBtn.classList.add('active');
-  callBtn.classList.remove('active');
+  demoBtn.classList.add("active");
+  callBtn.classList.remove("active");
 });
 
-callBtn.addEventListener('click', () => {
+callBtn.addEventListener("click", () => {
   mode = "Call";
-  callBtn.classList.add('active');
-  demoBtn.classList.remove('active');
+  callBtn.classList.add("active");
+  demoBtn.classList.remove("active");
 });
 
 // State change → districts
-stateSelect.addEventListener('change', () => {
+stateSelect.addEventListener("change", () => {
   const state = stateSelect.value;
   districtSelect.innerHTML = '<option value="">-- Select District --</option>';
   citySelect.innerHTML = '<option value="">-- Select City --</option>';
 
   if (state && data[state]) {
-    Object.keys(data[state]).forEach(district => {
-      const option = document.createElement('option');
+    Object.keys(data[state]).forEach((district) => {
+      const option = document.createElement("option");
       option.value = district;
       option.textContent = district;
       districtSelect.appendChild(option);
@@ -57,14 +57,14 @@ stateSelect.addEventListener('change', () => {
 });
 
 // District change → cities
-districtSelect.addEventListener('change', () => {
+districtSelect.addEventListener("change", () => {
   const state = stateSelect.value;
   const district = districtSelect.value;
   citySelect.innerHTML = '<option value="">-- Select City --</option>';
 
   if (state && district && data[state][district]) {
-    data[state][district].forEach(city => {
-      const option = document.createElement('option');
+    data[state][district].forEach((city) => {
+      const option = document.createElement("option");
       option.value = city;
       option.textContent = city;
       citySelect.appendChild(option);
@@ -74,7 +74,7 @@ districtSelect.addEventListener('change', () => {
 
 // Form submit
 // Form submit
-form.addEventListener('submit', async function(e) {
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const society = form.society.value;
@@ -93,19 +93,19 @@ form.addEventListener('submit', async function(e) {
 
   // Send data to backend to notify WhatsApp
   try {
-    const res = await fetch("/save-demo", {
+    const res = await fetch("http://localhost:3000/save-demo", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        phone,                 // 👈 add phone here
+        phone,
         societyName: society,
         state,
         district,
         city,
         demoDate: date,
         demoTime: time,
-        mode                   // 👈 add demo/call info
-      })
+        mode,
+      }),
     });
 
     const data = await res.json();
@@ -123,5 +123,3 @@ form.addEventListener('submit', async function(e) {
   districtSelect.innerHTML = '<option value="">-- Select District --</option>';
   citySelect.innerHTML = '<option value="">-- Select City --</option>';
 });
-
-
